@@ -1,0 +1,4 @@
+Split,Samples,Positive,Negative,Positive percentage
+Training,70,20,50,28.57
+Validation,15,4,11,26.67
+Testing,15,5,10,33.33

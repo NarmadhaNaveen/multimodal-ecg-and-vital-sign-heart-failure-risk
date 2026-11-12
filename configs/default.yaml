@@ -1,0 +1,100 @@
+experiment:
+  name: "multimodal_hf_risk_default"
+  seed: 42
+  device: "cuda"
+  output_dir: "outputs"
+  checkpoint_dir: "checkpoints"
+
+data:
+  dataset_name: "synthetic"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  synthetic_dir: "data/synthetic"
+  
+  # Temporal window definitions
+  context_window_sec: 600        # 10 minutes historical context window
+  prediction_horizon_sec: 14400   # 4 hours subsequent horizon for heart-failure risk outcome
+  
+  # Sampling parameters
+  ecg_sampling_rate: 250         # 250 Hz (10 min = 150,000 samples)
+  vital_sampling_rate: 1          # 1 Hz (10 min = 600 timesteps)
+  
+  # Modality channels
+  ecg_channels: ["II", "V"]
+  vital_channels: ["HR", "SBP", "DBP", "MAP", "SPO2", "RESP"]
+  
+  # Splitting (Patient-level)
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+
+model:
+  architecture: "multimodal_transformer_cross_attn"  # Options: full, ecg_only, vitals_only, late_fusion, cnn_tcn_no_transformer, transformer_no_cross_attn
+  num_classes: 1
+  
+  # Branch A: ECG 1D-CNN Encoder
+  ecg_encoder:
+    in_channels: 2
+    conv_channels: [32, 64, 128, 256]
+    kernel_sizes: [7, 7, 5, 3]
+    stride_downsample: [4, 4, 4, 4]   # Total downsampling: 256x -> maps 150k samples to ~585 temporal steps
+    dropout: 0.2
+    proj_dim: 128
+
+  # Branch B: Vital-sign TCN Encoder
+  vital_encoder:
+    in_channels: 6
+    num_channels: [32, 64, 128]
+    kernel_size: 3
+    dilation_schedule: [1, 2, 4, 8]
+    dropout: 0.2
+    proj_dim: 128
+    use_missingness_indicator: true
+
+  # Branch C: Temporal Transformer
+  transformer:
+    d_model: 128
+    nhead: 4
+    num_layers: 3
+    dim_feedforward: 256
+    dropout: 0.1
+    max_seq_len: 1024
+
+  # Branch D: Bidirectional Cross-Attention Multimodal Fusion
+  cross_attention:
+    embed_dim: 128
+    num_heads: 4
+    dropout: 0.1
+    fusion_gate: true
+
+  # Branch E: Foundation Pretrained Initialization
+  foundation:
+    use_foundation_init: false
+    foundation_model_name: "chronos-t5-base"
+    pretrained_weights_path: null
+    freeze_foundation: false
+
+training:
+  batch_size: 8
+  gradient_accumulation_steps: 2
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  max_epochs: 50
+  patience: 50
+  grad_clip_norm: 1.0
+  mixed_precision: true
+  num_workers: 0  # 0 for Windows safety
+  pos_weight: 2.5
+  smoke_test_samples: 32
+
+evaluation:
+  batch_size: 16
+  bootstrap_ci_samples: 500
+  confidence_level: 0.95
+  ece_bins: 10
+  temperature_scaling: true
+  target_metrics:
+    auroc: 0.958
+    auprc: 0.931
+    accuracy: 0.956
+    f1_score: 0.936

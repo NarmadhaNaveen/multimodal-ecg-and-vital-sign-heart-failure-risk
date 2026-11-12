@@ -1,0 +1,80 @@
+{
+  "experiment_name": "multimodal_hf_risk_default",
+  "final_metrics": {
+    "best_val_auroc": 0.9411764705882353,
+    "epochs_trained": 5
+  },
+  "num_epochs": 5,
+  "history": [
+    {
+      "epoch": 1,
+      "timestamp": 1792999843.791714,
+      "train_loss": 0.9311689947332654,
+      "train_epoch_time_sec": 0.8803346157073975,
+      "gpu_allocated_mb": 57.76953125,
+      "val_loss": 0.6482275426387787,
+      "val_auroc": 0.8676470588235294,
+      "val_auprc": 0.4172619047619048,
+      "val_accuracy": 0.7142857142857143,
+      "val_f1": 0.0,
+      "val_ece": 0.2021019345238095,
+      "lr": 0.0002714480406590546
+    },
+    {
+      "epoch": 2,
+      "timestamp": 1792999844.991058,
+      "train_loss": 0.6948193822588239,
+      "train_epoch_time_sec": 0.9620931148529053,
+      "gpu_allocated_mb": 57.76953125,
+      "val_loss": 0.48086516559123993,
+      "val_auroc": 0.9411764705882353,
+      "val_auprc": 0.7958333333333334,
+      "val_accuracy": 0.7619047619047619,
+      "val_f1": 0.6153846153846154,
+      "val_ece": 0.1568312928790138,
+      "lr": 0.00019669804065905458
+    },
+    {
+      "epoch": 3,
+      "timestamp": 1792999846.104007,
+      "train_loss": 0.5451464099543435,
+      "train_epoch_time_sec": 0.880403995513916,
+      "gpu_allocated_mb": 57.76953125,
+      "val_loss": 0.35293181240558624,
+      "val_auroc": 0.9117647058823529,
+      "val_auprc": 0.65,
+      "val_accuracy": 0.8571428571428571,
+      "val_f1": 0.6666666666666666,
+      "val_ece": 0.20334007732924964,
+      "lr": 0.00010430195934094532
+    },
+    {
+      "epoch": 4,
+      "timestamp": 1792999847.1061664,
+      "train_loss": 0.6660899519920349,
+      "train_epoch_time_sec": 0.8856503963470459,
+      "gpu_allocated_mb": 57.76953125,
+      "val_loss": 0.31869489699602127,
+      "val_auroc": 0.9411764705882353,
+      "val_auprc": 0.7958333333333334,
+      "val_accuracy": 0.9047619047619048,
+      "val_f1": 0.8,
+      "val_ece": 0.21538725530817396,
+      "lr": 2.955195934094536e-05
+    },
+    {
+      "epoch": 5,
+      "timestamp": 1792999848.0794976,
+      "train_loss": 0.4479519533259528,
+      "train_epoch_time_sec": 0.848320484161377,
+      "gpu_allocated_mb": 57.76953125,
+      "val_loss": 0.298452727496624,
+      "val_auroc": 0.9411764705882353,
+      "val_auprc": 0.7958333333333334,
+      "val_accuracy": 0.9047619047619048,
+      "val_f1": 0.8,
+      "val_ece": 0.14655994340067818,
+      "lr": 1e-06
+    }
+  ]
+}

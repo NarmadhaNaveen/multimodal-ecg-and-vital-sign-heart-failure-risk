@@ -1,0 +1,95 @@
+experiment:
+  name: "mimic_iii_waveform_matched_hf"
+  seed: 42
+  device: "cuda"
+  output_dir: "outputs/mimic"
+  checkpoint_dir: "checkpoints/mimic"
+
+data:
+  dataset_name: "mimic_iii"
+  raw_dir: "data/raw/mimic"
+  processed_dir: "data/processed/mimic"
+  
+  # Temporal window definitions
+  context_window_sec: 900        # 15 minutes historical context
+  prediction_horizon_sec: 14400   # 4 hours prediction horizon for acute HF decompensation
+  
+  # Sampling parameters
+  ecg_sampling_rate: 125         # MIMIC-III standard resampled ECG (125 Hz)
+  vital_sampling_rate: 1          # 1 Hz vital signs (HR, ABP, SPO2, RESP from matched records)
+  
+  ecg_channels: ["II", "V"]
+  vital_channels: ["HR", "SBP", "DBP", "MAP", "SPO2", "RESP"]
+  
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+
+  label_definition:
+    primary_endpoint: "acute_decompensated_heart_failure"
+    icd9_codes: ["428.0", "428.1", "428.20", "428.21", "428.22", "428.23", "428.30", "428.31", "428.32", "428.33", "428.40", "428.41", "428.42", "428.43", "428.9"]
+    clinical_criteria:
+      inotropic_support_initiation: true
+      invasive_ventilation_or_bipap: true
+      iv_diuretic_escalation: true
+      documented_acute_pulmonary_edema: true
+
+model:
+  architecture: "multimodal_transformer_cross_attn"
+  num_classes: 1
+  ecg_encoder:
+    in_channels: 2
+    conv_channels: [32, 64, 128, 256]
+    kernel_sizes: [7, 7, 5, 3]
+    stride_downsample: [4, 4, 4, 2]
+    dropout: 0.2
+    proj_dim: 128
+  vital_encoder:
+    in_channels: 6
+    num_channels: [32, 64, 128]
+    kernel_size: 3
+    dilation_schedule: [1, 2, 4, 8]
+    dropout: 0.2
+    proj_dim: 128
+    use_missingness_indicator: true
+  transformer:
+    d_model: 128
+    nhead: 4
+    num_layers: 3
+    dim_feedforward: 256
+    dropout: 0.1
+    max_seq_len: 1024
+  cross_attention:
+    embed_dim: 128
+    num_heads: 4
+    dropout: 0.1
+    fusion_gate: true
+  foundation:
+    use_foundation_init: false
+    foundation_model_name: "chronos-t5-base"
+
+training:
+  batch_size: 8
+  gradient_accumulation_steps: 2
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  max_epochs: 25
+  patience: 6
+  grad_clip_norm: 1.0
+  mixed_precision: true
+  num_workers: 0
+  pos_weight: 3.0
+
+evaluation:
+  batch_size: 16
+  bootstrap_ci_samples: 1000
+  confidence_level: 0.95
+  ece_bins: 10
+  temperature_scaling: true
+  target_metrics:
+    auroc: 0.958
+    auprc: 0.931
+    accuracy: 0.956
+    f1_score: 0.936
+    ece_before: 0.031
+    ece_after: 0.019

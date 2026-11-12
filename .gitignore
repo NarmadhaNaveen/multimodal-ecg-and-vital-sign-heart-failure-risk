@@ -1,0 +1,18 @@
+# Python environments
+.venv*/
+venv*/
+
+# Datasets and processed patient data
+data/
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Secrets
+.env

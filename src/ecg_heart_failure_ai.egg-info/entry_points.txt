@@ -1,0 +1,4 @@
+[console_scripts]
+ecg-eval = scripts.evaluate:main
+ecg-smoke = scripts.run_smoke_test:main
+ecg-train = scripts.train:main

@@ -1,0 +1,38 @@
+{
+  "experiment_name": "multimodal_hf_risk_default",
+  "final_metrics": {
+    "best_val_auroc": 0.94,
+    "epochs_trained": 2
+  },
+  "num_epochs": 2,
+  "history": [
+    {
+      "epoch": 1,
+      "timestamp": 1793129513.1421218,
+      "train_loss": 1.133105579763651,
+      "train_epoch_time_sec": 2.4843897819519043,
+      "gpu_allocated_mb": 45.50390625,
+      "val_loss": 1.0306546688079834,
+      "val_auroc": 0.56,
+      "val_auprc": 0.5935064935064935,
+      "val_accuracy": 0.3333333333333333,
+      "val_f1": 0.5,
+      "val_ece": 0.197167972723643,
+      "lr": 0.00015049999999999997
+    },
+    {
+      "epoch": 2,
+      "timestamp": 1793129514.4680712,
+      "train_loss": 0.9952399209141731,
+      "train_epoch_time_sec": 0.9543259143829346,
+      "gpu_allocated_mb": 45.50390625,
+      "val_loss": 1.056469440460205,
+      "val_auroc": 0.94,
+      "val_auprc": 0.919642857142857,
+      "val_accuracy": 0.6666666666666666,
+      "val_f1": 0.0,
+      "val_ece": 0.08297525842984516,
+      "lr": 1e-06
+    }
+  ]
+}

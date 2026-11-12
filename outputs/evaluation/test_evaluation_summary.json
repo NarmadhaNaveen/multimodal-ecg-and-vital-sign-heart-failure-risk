@@ -1,0 +1,115 @@
+{
+  "test_metrics": {
+    "auroc": 0.9801587301587301,
+    "auprc": 0.8770828708328708,
+    "accuracy": 0.9814814814814815,
+    "precision": 0.9230769230769231,
+    "recall": 1.0,
+    "sensitivity": 1.0,
+    "specificity": 0.9761904761904762,
+    "f1_score": 0.96,
+    "confusion_matrix": {
+      "tn": 41,
+      "fp": 1,
+      "fn": 0,
+      "tp": 12
+    },
+    "ece": 0.03138514266659815,
+    "brier_score": 0.021988287568092346,
+    "threshold": 0.8499999999999999,
+    "num_samples": 54,
+    "prevalence": 0.2222222222222222
+  },
+  "calibration": {
+    "temperature": 0.6144176726199009,
+    "ece_before": 0.05227210398653006,
+    "ece_after": 0.031385141562808444,
+    "brier_before": 0.024687899801097965,
+    "brier_after": 0.021988287568092346,
+    "ece_reduction_percent": 39.95813605147852,
+    "brier_reduction_percent": 10.934956643780174
+  },
+  "confidence_intervals": {
+    "auroc": {
+      "mean": 0.9771573217294112,
+      "median": 0.9801587301587302,
+      "ci_lower": 0.9261183261183261,
+      "ci_upper": 1.0
+    },
+    "auprc": {
+      "mean": 0.872770414116851,
+      "median": 0.886468253968254,
+      "ci_lower": 0.5585438652643613,
+      "ci_upper": 1.0
+    },
+    "accuracy": {
+      "mean": 0.9807735300693048,
+      "median": 0.9814814814814815,
+      "ci_lower": 0.9444444444444444,
+      "ci_upper": 1.0
+    },
+    "sensitivity": {
+      "mean": 1.0,
+      "median": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0
+    },
+    "specificity": {
+      "mean": 0.9739073655661417,
+      "median": 0.9761904761904762,
+      "ci_lower": 0.9166666666666666,
+      "ci_upper": 1.0
+    },
+    "f1_score": {
+      "mean": 0.9605562198962163,
+      "median": 0.96,
+      "ci_lower": 0.8748558758314856,
+      "ci_upper": 1.0
+    },
+    "ece": {
+      "mean": 0.034917544244192196,
+      "median": 0.03201754480876304,
+      "ci_lower": 0.014249195082596056,
+      "ci_upper": 0.06801207046265952
+    },
+    "brier_score": {
+      "mean": 0.022725941061017187,
+      "median": 0.020750069990754128,
+      "ci_lower": 0.001367259444668889,
+      "ci_upper": 0.05918277204036713
+    }
+  },
+  "baseline_lr_metrics": {
+    "auroc": 1.0,
+    "auprc": 1.0,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "sensitivity": 1.0,
+    "specificity": 1.0,
+    "f1_score": 1.0,
+    "confusion_matrix": {
+      "tn": 42,
+      "fp": 0,
+      "fn": 0,
+      "tp": 12
+    },
+    "ece": 0.03262836430911664,
+    "brier_score": 0.004525879397988319,
+    "threshold": 0.5,
+    "num_samples": 54,
+    "prevalence": 0.2222222222222222
+  },
+  "reference_targets": {
+    "auroc": 0.958,
+    "auprc": 0.931,
+    "f1_score": 0.936,
+    "accuracy": 0.956
+  },
+  "plot_paths": {
+    "roc_curve": "outputs/evaluation\\test_roc_curve.png",
+    "pr_curve": "outputs/evaluation\\test_pr_curve.png",
+    "calibration_plot": "outputs/evaluation\\test_calibration_plot.png",
+    "confusion_matrix": "outputs/evaluation\\test_confusion_matrix.png"
+  }
+}

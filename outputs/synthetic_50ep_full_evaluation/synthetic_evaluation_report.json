@@ -1,0 +1,88 @@
+{
+  "dataset": "synthetic",
+  "checkpoint": ".\\checkpoints\\synthetic_50ep_full\\best.pt",
+  "optimal_threshold": 0.8499999999999999,
+  "temperature": 1.188168817550798,
+  "metrics": {
+    "auroc": 1.0,
+    "auprc": 1.0,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "sensitivity": 1.0,
+    "specificity": 1.0,
+    "f1_score": 1.0,
+    "confusion_matrix": {
+      "tn": 9,
+      "fp": 0,
+      "fn": 0,
+      "tp": 6
+    },
+    "ece": 0.13205566008885702,
+    "brier_score": 0.018733957782387733,
+    "threshold": 0.8499999999999999,
+    "num_samples": 15,
+    "prevalence": 0.4
+  },
+  "calibration": {
+    "temperature": 1.188168817550798,
+    "ece_before": 0.13204034345528878,
+    "ece_after": 0.16905451714992523,
+    "brier_before": 0.018732081477727713,
+    "brier_after": 0.02997087873518467,
+    "ece_reduction_percent": -28.032470927283683,
+    "brier_reduction_percent": -59.99755697765935
+  },
+  "bootstrap_ci": {
+    "auroc": {
+      "mean": 1.0,
+      "median": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0
+    },
+    "auprc": {
+      "mean": 1.0,
+      "median": 1.0,
+      "ci_lower": 0.9999999999999999,
+      "ci_upper": 1.0
+    },
+    "accuracy": {
+      "mean": 1.0,
+      "median": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0
+    },
+    "sensitivity": {
+      "mean": 1.0,
+      "median": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0
+    },
+    "specificity": {
+      "mean": 1.0,
+      "median": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0
+    },
+    "f1_score": {
+      "mean": 1.0,
+      "median": 1.0,
+      "ci_lower": 1.0,
+      "ci_upper": 1.0
+    },
+    "ece": {
+      "mean": 0.13217906911571822,
+      "median": 0.1322143559654554,
+      "ci_lower": 0.1145326788475116,
+      "ci_upper": 0.1499119080106417
+    },
+    "brier_score": {
+      "mean": 0.018769402213394643,
+      "median": 0.01874402817338705,
+      "ci_lower": 0.014131248020567,
+      "ci_upper": 0.023709966475144024
+    }
+  },
+  "num_test_samples": 15,
+  "test_prevalence": 0.4000000059604645
+}

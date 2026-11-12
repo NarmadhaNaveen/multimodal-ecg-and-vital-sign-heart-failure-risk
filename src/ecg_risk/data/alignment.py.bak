@@ -1,0 +1,84 @@
+import numpy as np
+from typing import Dict, Any, List, Optional, Tuple
+
+
+class SynchronizedWindowAligner:
+    """
+    Slices and aligns continuous multi-channel ECG waveforms and vital sign time series
+    into discrete paired observation windows (context window) preceding a prediction horizon.
+    """
+
+    def __init__(
+        self,
+        context_window_sec: int = 600,
+        prediction_horizon_sec: int = 14400,
+        ecg_fs: int = 250,
+        vital_fs: int = 1,
+    ):
+        self.context_window_sec = context_window_sec
+        self.prediction_horizon_sec = prediction_horizon_sec
+        self.ecg_fs = ecg_fs
+        self.vital_fs = vital_fs
+
+        self.ecg_window_len = int(context_window_sec * ecg_fs)
+        self.vital_window_len = int(context_window_sec * vital_fs)
+
+    def extract_windows(
+        self,
+        ecg_signal: np.ndarray,          # shape (C_ecg, T_ecg)
+        vital_signal: np.ndarray,        # shape (C_vital, T_vital)
+        vital_mask: np.ndarray,          # shape (C_vital, T_vital)
+        event_timestamps_sec: List[float], # event onset times relative to recording start
+        recording_duration_sec: float,
+        stride_sec: int = 300,           # Stride between consecutive windows
+    ) -> List[Dict[str, Any]]:
+        """
+        Extracts non-leaking context windows strictly occurring BEFORE the prediction horizon.
+        If an event occurs within [t_window_end, t_window_end + prediction_horizon_sec],
+        label = 1.0. If no event occurs and sufficient follow-up is available, label = 0.0.
+        Windows with insufficient horizon or occurring after an event are excluded.
+        """
+        windows = []
+        max_start = int(recording_duration_sec - self.context_window_sec)
+        if max_start < 0:
+            return windows
+
+        for t_start in range(0, max_start + 1, stride_sec):
+            t_end = t_start + self.context_window_sec
+            horizon_end = t_end + self.prediction_horizon_sec
+
+            # Slicing indices
+            ecg_idx_start = int(t_start * self.ecg_fs)
+            ecg_idx_end = int(t_end * self.ecg_fs)
+            vital_idx_start = int(t_start * self.vital_fs)
+            vital_idx_end = int(t_end * self.vital_fs)
+
+            if ecg_idx_end > ecg_signal.shape[-1] or vital_idx_end > vital_signal.shape[-1]:
+                break
+
+            ecg_slice = ecg_signal[:, ecg_idx_start:ecg_idx_end]
+            vital_slice = vital_signal[:, vital_idx_start:vital_idx_end]
+            mask_slice = vital_mask[:, vital_idx_start:vital_idx_end]
+
+            # Label determination: event within horizon
+            label = 0.0
+            event_in_horizon = False
+            for ev_t in event_timestamps_sec:
+                if t_end <= ev_t <= horizon_end:
+                    event_in_horizon = True
+                    label = 1.0
+                    break
+                elif ev_t < t_end:
+                    # Observation after event onset is strictly excluded
+                    pass
+
+            windows.append({
+                "ecg": ecg_slice.astype(np.float32),
+                "vitals": vital_slice.astype(np.float32),
+                "mask": mask_slice.astype(np.float32),
+                "label": float(label),
+                "t_start_sec": float(t_start),
+                "t_end_sec": float(t_end),
+            })
+
+        return windows

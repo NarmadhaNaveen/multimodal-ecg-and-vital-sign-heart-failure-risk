@@ -1,0 +1,80 @@
+{
+  "experiment_name": "multimodal_hf_risk_default",
+  "final_metrics": {
+    "best_val_auroc": 1.0,
+    "epochs_trained": 5
+  },
+  "num_epochs": 5,
+  "history": [
+    {
+      "epoch": 1,
+      "timestamp": 1792999836.192491,
+      "train_loss": 0.8940407995666776,
+      "train_epoch_time_sec": 1.276754379272461,
+      "gpu_allocated_mb": 34.21337890625,
+      "val_loss": 0.6905039548873901,
+      "val_auroc": 0.5,
+      "val_auprc": 0.5952380952380952,
+      "val_accuracy": 0.8095238095238095,
+      "val_f1": 0.0,
+      "val_ece": 0.11884998139880953,
+      "lr": 0.0002714480406590546
+    },
+    {
+      "epoch": 2,
+      "timestamp": 1792999836.9880621,
+      "train_loss": 0.8663498120648521,
+      "train_epoch_time_sec": 0.6284642219543457,
+      "gpu_allocated_mb": 34.21337890625,
+      "val_loss": 0.6920840740203857,
+      "val_auroc": 0.8161764705882352,
+      "val_auprc": 0.6988095238095239,
+      "val_accuracy": 0.8095238095238095,
+      "val_f1": 0.0,
+      "val_ece": 0.12574403342746554,
+      "lr": 0.00019669804065905458
+    },
+    {
+      "epoch": 3,
+      "timestamp": 1792999837.7718003,
+      "train_loss": 0.8124693717275348,
+      "train_epoch_time_sec": 0.6240098476409912,
+      "gpu_allocated_mb": 34.21337890625,
+      "val_loss": 0.6591506153345108,
+      "val_auroc": 1.0,
+      "val_auprc": 1.0,
+      "val_accuracy": 0.8095238095238095,
+      "val_f1": 0.0,
+      "val_ece": 0.12996419128917513,
+      "lr": 0.00010430195934094532
+    },
+    {
+      "epoch": 4,
+      "timestamp": 1792999838.4519262,
+      "train_loss": 0.8387920090130397,
+      "train_epoch_time_sec": 0.5160090923309326,
+      "gpu_allocated_mb": 34.21337890625,
+      "val_loss": 0.6246415227651596,
+      "val_auroc": 1.0,
+      "val_auprc": 1.0,
+      "val_accuracy": 0.8095238095238095,
+      "val_f1": 0.0,
+      "val_ece": 0.13578869757198153,
+      "lr": 2.955195934094536e-05
+    },
+    {
+      "epoch": 5,
+      "timestamp": 1792999839.0853322,
+      "train_loss": 0.8995020283120019,
+      "train_epoch_time_sec": 0.5203676223754883,
+      "gpu_allocated_mb": 34.21337890625,
+      "val_loss": 0.624274730682373,
+      "val_auroc": 1.0,
+      "val_auprc": 1.0,
+      "val_accuracy": 0.8095238095238095,
+      "val_f1": 0.0,
+      "val_ece": 0.13424246367954074,
+      "lr": 1e-06
+    }
+  ]
+}
